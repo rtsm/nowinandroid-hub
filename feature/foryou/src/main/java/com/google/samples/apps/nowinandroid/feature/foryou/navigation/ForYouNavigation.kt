@@ -24,11 +24,11 @@ import com.google.samples.apps.nowinandroid.feature.foryou.ForYouRoute
 
 const val forYouNavigationRoute = "for_you_route"
 
-fun NavController.navigateToForYou(navOptions: NavOptions? = null) {
+internal fun NavController.navigateToForYou(navOptions: NavOptions? = null) {
     this.navigate(forYouNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
+internal fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
     composable(route = forYouNavigationRoute) {
         ForYouRoute(onTopicClick)
     }

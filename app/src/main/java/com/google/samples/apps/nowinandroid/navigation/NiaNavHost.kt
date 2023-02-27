@@ -20,12 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.google.samples.apps.nowinandroid.core.data.NavigationAction
+import com.google.samples.apps.nowinandroid.core.data.HubMock
 import com.google.samples.apps.nowinandroid.feature.bookmarks.navigation.bookmarksScreen
 import com.google.samples.apps.nowinandroid.feature.foryou.navigation.forYouNavigationRoute
-import com.google.samples.apps.nowinandroid.feature.foryou.navigation.forYouScreen
 import com.google.samples.apps.nowinandroid.feature.interests.navigation.interestsGraph
-import com.google.samples.apps.nowinandroid.feature.topic.navigation.navigateToTopic
-import com.google.samples.apps.nowinandroid.feature.topic.navigation.topicScreen
 
 /**
  * Top-level navigation graph. Navigation is organized as explained at
@@ -45,19 +44,16 @@ fun NiaNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        // TODO: handle topic clicks from each top level destination
-        forYouScreen(onTopicClick = {})
+        HubMock.navigationEvent(
+            "for_you_route",
+            NavigationAction.Builder()
+                .toGraphTree()
+                .withNavGraph(this)
+                .build()
+        )
         bookmarksScreen(onTopicClick = {})
         interestsGraph(
-            onTopicClick = { topicId ->
-                navController.navigateToTopic(topicId)
-            },
-            nestedGraphs = {
-                topicScreen(
-                    onBackClick = navController::popBackStack,
-                    onTopicClick = {},
-                )
-            },
+            navController
         )
     }
 }

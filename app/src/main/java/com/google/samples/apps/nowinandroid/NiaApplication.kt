@@ -19,6 +19,8 @@ package com.google.samples.apps.nowinandroid
 import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
+import com.google.samples.apps.nowinandroid.feature.foryou.ForYouPlugin
+import com.google.samples.apps.nowinandroid.feature.topic.TopicPlugin
 import com.google.samples.apps.nowinandroid.sync.initializers.Sync
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -34,6 +36,8 @@ class NiaApplication : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
+        setOf(ForYouPlugin, TopicPlugin).forEach { println(it.id) } // had to make ForYouPlugin init before actual navgraph, PH does that on its own
+
         // Initialize Sync; the system responsible for keeping data in the app up to date.
         Sync.initialize(context = this)
     }
